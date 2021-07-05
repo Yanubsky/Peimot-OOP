@@ -1,0 +1,295 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: rgb(67, 81, 87);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+*::selection{
+    background-color: rgb(133, 185, 126);
+}
+/* ==========navbar============ */
+header{
+    height: 65px;
+    background-color: rgb(182, 178, 169);
+    border-bottom: solid rgb(112, 104, 93);
+    display: flex;
+    flex-direction: row;
+    justify-items: space-between;
+}
+header.fixed-transp{
+    height: 65px;
+    background-color: rgb(182, 178, 169, .7);
+    border-bottom: solid rgb(112, 104, 93);
+    display: flex;
+    flex-direction: row;
+    justify-items: space-between;
+
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+.logo{
+    font-size: 1.5rem;
+    margin: auto;
+}
+.main-nav{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#navbarGeneralTabsDiv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    width: 60%;
+}
+#navbarProfileDiv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-left: auto;
+    margin-right: auto;
+    width: 5%;
+}
+ul{
+    width: 80%;
+}
+li{
+    font-size: 1.2rem;
+    padding-right: 7px;
+    margin: auto;
+}
+li:hover{
+    text-shadow: 2px 0 7px rgb(224, 223, 210);
+    color: rgb(96, 142, 161);
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+a{
+    text-decoration: none;
+}
+#logout{
+    font-size: 1.3rem;
+    padding: 4px 10px 4px 10px ;
+    justify-self: right;
+    background-color:  rgb(67, 81, 87);
+    border-radius: 70%;
+    color:rgb(182, 178, 169) ;
+}
+#logout:hover{
+    text-shadow: 2px 0 2px rgb(137, 150, 163);
+    color: rgb(97, 129, 143);
+    background-color: rgb(182, 178, 169);
+    cursor: pointer;
+    border: solid 1px rgb(97, 129, 143) ;
+}
+#hammerIcon{
+    font-size: 1.5rem;
+}
+#hammerIcon:hover{
+    font-size: 1.7rem;
+}
+#signoutBtn{
+    background-color: transparent;
+    border:none;
+}
+#signoutBtn:hover{
+    cursor: pointer;
+}
+.currentNavItem{
+    background-color: rgba(82, 145, 115, 0.5);
+    border-radius: 40%;
+    border-color:solid 2px rgba(42, 75, 59, 0.699);
+}
+
+/*===============loginRegister============*/
+/* #wholePageDiv{
+    
+    width:100%;
+    z-index: 1;
+    background: linear-gradient(rgb(152,145,187), rgb(132,51,146, 0.7));
+} */
+.forms-main-div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+    height: 80vh;
+    margin: auto;
+    margin-top: auto;
+    border-style: double ;
+    border-radius: 15%;
+    background-color: rgb(230, 227, 221) ;
+}
+
+.oneFormDiv{
+    display: inline-flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+fieldset{
+    border-radius: 10px;
+    background-color: rgb(182, 178, 169, 0.7);
+}
+fieldset legend{
+    margin: auto;
+    border: solid 1px rgb(97, 129, 143) ;
+    border-radius: 10px;
+    padding: 3px;
+    background-color: rgba(127, 194, 194, 0.7);
+}
+form input{
+    text-align: right;
+    background-color: rgba(236, 233, 227, 0.5);
+}
+form button{
+    padding: 6px;
+    border-radius: 60% 10% 60% 15%;
+    background: linear-gradient(0.25turn, rgba(189, 218, 156, 0.8), rgb(115, 175, 169, 0.6), rgb(115, 115, 188, 0.5));
+}
+
+.passInputDiv{
+    display: grid;
+}
+/* input[type="password"]{
+    grid-column: 1 / 3;
+} */
+.fa-eye,.fa-eye-slash{
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 3;
+    margin-right: 70%;
+    padding: 3px;
+}
+.passLable{
+    grid-column: 3;
+    margin: unset;
+    justify-self: right;
+}
+form input{
+    margin-bottom: 3px;
+}
+
+#loginPass,
+#regPass,
+#confirmPass{
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 2;
+}
+
+/* =========admin forms======== */
+#adminHeader{
+    box-sizing: border-box;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+}
+.admin-form-div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    box-sizing: border-box;
+    right: 0;
+    width: 70%;
+    margin: auto;
+}
+.adminChoice:hover{
+    cursor: pointer;
+}
+#delete-form-div form table{
+   table-layout: auto;
+   width: 100%;
+   border-collapse: collapse;
+   border: 3px solid rgb(0, 119, 128);
+}
+
+th,td{
+    padding: 20px;
+    border: 6px grey;
+}
+tbody tr:nth-child(n2){
+    background-color: khaki;
+}
+tbody tr:nth-child(n2+1){
+    background-color: lemonchiffon;
+}
+fieldset{
+    padding-right:15%;
+    text-align: right;
+}
+fieldset textarea{
+    direction: rtl;
+}
+
+/* ==================== articles page ====================== */
+.itemsMainDiv{
+    margin: 20px;
+    background-color: transparent;
+    height: calc(100vh + 600px);
+    color: var(--theme-color-header1);
+    text-align: right;
+}
+
+div.articlesTopics{
+    /* background-color: var(--theme-background-gradient); */
+    overflow: auto;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: var(--theme-background-gradient);
+
+}
+div.articlesTopics form input[type=image]{
+    height: 300px;
+    width: 300px;
+    padding: 10px;
+
+}
+div.articlesTopics form input[type=image]:hover{
+    opacity: 0.8;
+    padding: 7px;
+    /* background-color: var(--theme-background-gradient); */
+}
+
+#being-read{
+    background-color: rgb(182, 178, 169, .7);
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 60%;
+    margin: auto;
+    padding: 15px;
+}
+#being-read h2{
+    align-self: center;
+}
+#one-image{
+ align-self: center;
+border-bottom: solid 2px burlywood;
+}
+
+/* ============================================================================== */
+
+/* small screen handling */
+@media(max-width: 620px){
+    header{
+        height: max-content;
+    }
+    .main-nav{
+        flex-direction: column-reverse;
+    }
+}

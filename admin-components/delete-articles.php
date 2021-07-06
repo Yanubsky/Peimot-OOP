@@ -1,12 +1,13 @@
 <div class="admin-form-div">
     <div id="delete-form-div">
-        <form action="../req-handle.php?action=delete" id="delete-articles" method="DELETE">
+        <form action="../req-handle.php?action=delete" id="delete-articles" method="GET">
             <table dir="rtl">
                 <caption>  רשימת המאמרים הקיימים במאגר הנתונים </caption>
                 <tbody>
                 <tr>
                     <th scope="col"> <input type="checkbox" name="mainCheckbox" id="mainCheckbox" class="articleTableCheckboxes" onclick="toggleCheckbox(this)"> </th>
                     <th scope="col"> עריכה </th>
+                    <th scope="col"> מחיקה </th>
                     <th scope="col"> מאמר מספר </th>
                     <th scope="col"> נושא המאמר </th>
                     <th scope="col"> שם המאמר </th>
@@ -18,7 +19,7 @@
                     Article::getList();
                 ?> 
                 </tbody>
-</table>
+            </table>
         </form>
     </div>
 </div>

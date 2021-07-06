@@ -251,18 +251,18 @@ class Article{
             $image = stristr($imageUrl , "/myphp"); 
 
             // console_log($id . '-' . $topic . '-' . $name . '-' . $date . '-' . $image);
-            echo '<form class="edit-article-form" method="GET" action="../req-handle.php?action=edit-article">
-                    <tr>
-                        <td> <input type="checkbox" name="adminArticlesTable" id="checkbox#' . $id . '" class="articleTableCheckboxes"> </td>
-                        <td> <a role="button" href="../req-handle.php?action=edit-article" name="articleToEdit" class="editBtn"> עריכה </buttonbtton> <input type="hidden" name="articleToEdit" id="articleToEdit" value="'.$id.'" class="artToEdit"> </td>
-                        <td> <a role="button" href="../req-handle.php?action=delete-article" class="deleteArticleBtn">מחיקה</a> <input type="hidden" name="articleToDel" id="articleToDel" value="'.$id.'" class="artToDel"> </td>
-                        <th scope="row">' . $id . '</th>
-                        <td>' . $topic . '</td>
-                        <td>' . $name . '</td>
-                        <td>' . $date . '</td>
-                        <td><img src="' . $image . '" alt="' . $name . '" style="width:100px; padding: 20px" class="articleTableImages"></td>
-                    </tr>
-                </form>';
+            echo '<tr>
+                    <td> <input type="checkbox" name="adminArticlesTable" id="checkbox#' . $id . '" class="articleTableCheckboxes"> </td>
+                    <td> <input type="hidden" name="editArtHidden" value="'.$id.'">
+                        <button type="submit" form="edit-article">עריכה</button>
+                    </td>
+                    <td> <a role="button" href="../req-handle.php?action=delete-article" class="deleteArticleBtn">מחיקה</a> </td>
+                    <th scope="row">' . $id . '</th>
+                    <td>' . $topic . '</td>
+                    <td>' . $name . '</td>
+                    <td>' . $date . '</td>
+                    <td><img src="' . $image . '" alt="' . $name . '" style="width:100px; padding: 20px" class="articleTableImages"></td>
+                </tr>';
         }
     }
 
@@ -272,16 +272,15 @@ class Article{
         $selectArticle = $con->prepare("SELECT * FROM articles a WHERE a.id = '".$artId."'");
         $selectArticle-> setFetchMode(PDO::FETCH_ASSOC);
         $selectArticle-> execute();
-        $articleDetails = $selectArticle->fetchAll();
-    
+        $articleDetails = $selectArticle->fetch();
         $_SESSION['editedArtId'] = $articleDetails['id'];
         $_SESSION['editedArtTopic'] = $articleDetails['topic'];
         $_SESSION['editedArtTitle'] = $articleDetails['articleTitle'];
-        $_SESSION['editedArtcontent'] = $articleDetails['content'];   
+        $_SESSION['editedArtContent'] = $articleDetails['content'];   
         
         $topic = $_SESSION['editedArtTopic'];
         $articleTitle = $_SESSION['editedArtTitle'];
-        $body = $_SESSION['editedArtcontent'];
+        $body = $_SESSION['editedArtContent'];
         /*
         TODO list:
             1. edit form action
@@ -289,9 +288,10 @@ class Article{
             3.
         
         */
+        console_log("inside editArticle()");
         echo '
             <div class="admin-form-div">
-                <form id="post-article" method="POST" action="../req-handle.php?action=update-article" enctype="multipart/form-data" >
+                <form id="update-article" method="POST" action="req-handle.php?action=update-article" enctype="multipart/form-data" >
                     <fieldset>
                         <legend> מאמרים </legend>
                         <p>אפשרות לסמן מאמר בבחירה מרובה לשם מחיקה ובנוסף מקום להוספת מאמרים חדשים טקסט ותמונות</p>
@@ -310,11 +310,11 @@ class Article{
                         <br><br>
                         <div id="article-body">
                             <label for="content" ></label>
-                            <textarea name="content" id="content" value="'.$body.'" autofocus required cols="91" rows="20"></textarea>
+                            <textarea name="content" id="content" autofocus required cols="91" rows="20">'.$body.'</textarea>
                             <br>
                         </div>
                         <br><br>
-                        <button name="update-article" value="update-article">עדכון המאמר</button>
+                        <button type="submit" name="update-article" value="update-article" form="update-article">עדכון המאמר</button>
                         <br><br>
                     </fieldset>
                 </form>
@@ -325,23 +325,21 @@ class Article{
         $selectImages->setFetchMode(PDO::FETCH_ASSOC);
         $selectImages->execute();
         $imagesArray = $selectImages->fetchAll();
-
         $printImagesArray = array();
         foreach ($imagesArray as $curr) {
             $dbImage = $curr['img'];
             $imageId = $curr['imageId'];
             $imageName = $curr['imageName'];
             $imageForPrinting = stristr($dbImage, "/myphp");
-            echo '
-                <tr>
-                <td> <a role="button" href="../req-handle.php?action=delete-image" class="deleteImageBtn">עריכה</a> <input type="hidden" name="imgToDel" value="'.$imageId.'" class="imgToDel"> </td>
-                <td><img src="'. $imageForPrinting .'" alt="'. $imageName .'" style="width:100px; padding: 20px" class="articleTableImages"> </td>
-                </tr>
-            ';
-
+            echo '<div id="one-img-del-div">
+                     <form id="delete-image" method="POST" action="req-handle.php?action=delete-image" enctype="multipart/form-data" >
+                        <button type="submit" form="delete-image">כפתור</button>
+                        <input type="hidden" name="imgToDel" value="'.$imageId.'" class="imgToDel">
+                        <img src="'. $imageForPrinting .'" alt="'. $imageName .'" style="width:100px; padding: 20px" class="articleTableImages">
+                    </form>
+                </div>';
             array_push($printImagesArray, $imageForPrinting);
         }
-
     }
 
     public static function updateArticle($artId, $body, $topic, $articleTitle){
@@ -349,7 +347,7 @@ class Article{
         $updateQuery = 
             'UPDATE articles 
             SET content = "'.$body.'",
-            topic = "'.$topic.'", articlTitle = "'.$articleTitle.'"
+            topic = "'.$topic.'", articleTitle = "'.$articleTitle.'"
             WHERE articles.id = "'.$artId.'"';
         $updateArticle = $con->prepare($updateQuery);
         $updateArticle->execute(); 
@@ -362,18 +360,18 @@ class Article{
     public static function deleteImages($imgToDel){
         global $con;
 
-        $deleteImgQuery = $con->prepare('DELETE FROM images AS i WHERE i.imageId = "'.$imgToDel.'"');
+        $deleteImgQuery = $con->prepare('DELETE FROM images WHERE images.imageId = "'.$imgToDel.'"');
         $deleteImgQuery->execute(); 
         //checking if query was succsesfully implemented
-        if ($deleteImgQuery > 0){
-            echo ' Image number <span>'. $imgToDel .'</span> was deleted!';
+        if ($deleteImgQuery > 0 && $imgToDel > 0){
+            echo ' Image number <span>"'. $imgToDel .'"</span> was deleted!';
         };
     }
    
     public static function deleteArticle($artToDelId){
         global $con;
         
-        $deleteArtQuery = $con->prepare('DELETE FROM articles AS a WHERE a.id = "'.$artToDelId.'"');
+        $deleteArtQuery = $con->prepare('DELETE FROM articles WHERE articles.id = "'.$artToDelId.'"');
         $deleteArtQuery->execute();
         if ($deleteArtQuery > 0) {
             echo 'The article '. $artToDelId.' was deleted from the database permanently!';

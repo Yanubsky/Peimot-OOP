@@ -9,10 +9,6 @@
     $action = isset($_GET['action']) ? $_GET['action'] : null; 
     $userName = isset($_SESSION['name']) ? $_SESSION['name'] : null;
 
-    if( $userName != null ){
-        header("location:http://localhost/myphp/peimot-class/pages/home.php");
-    }
-
     $articleId;
     $imageId;
     
@@ -40,7 +36,7 @@
             }
         break;
         case 'edit-article':
-            $artId = $_REQUEST['articleToEdit'];
+            $artId = $_REQUEST['editArtHidden'];
             Article::editArticle($artId);
         break;
         case 'update-article':
@@ -49,7 +45,6 @@
                 $topic = $_SESSION['editedArtTopic'];
                 $articleTitle = $_SESSION['editedArtTitle'];
                 $body = $_SESSION['editedArtcontent'];    
-
                 Article::updateArticle($artId, $body, $topic, $articleTitle);
             }
         break;

@@ -1,30 +1,29 @@
 <div class="admin-form-div">
-    <form id="post-article" method="POST" action="../req-handle.php?action=post-article" enctype="multipart/form-data" >
-        <fieldset>
-            <legend> מאמרים </legend>
-            <p>אפשרות לסמן מאמר בבחירה מרובה לשם מחיקה ובנוסף מקום להוספת מאמרים חדשים טקסט ותמונות</p>
-            <select id="topic" name="topic" required>
-                <option value="" disabled selected >בחר נושא</option>
-                <option value="nutri">תזונה</option>
-                <option value="breath">נשימה</option>
-                <option value="sleep">שינה</option>
-                <option value="aware">מודעות</option>
-                <option value="motion">תנועה</option>
-            </select>
-            <label for="topic">:נושא המאמר</label>
-            <br>
-            <input type="text" name="articleTitle" size="91" required placeholder="כותרת">
-            <br><br>
-            <div id="article-body">
-                <label for="content" ></label>
-                <textarea name="content" id="content" placeholder="...הכנס/הדבק טקסט" autofocus required cols="91" rows="20"></textarea>
-                <br>
-                <label for="articleImages">.אנא הוסף קבצי תמונות בלבד. חשוב לשמור על איכות תמונה גבוהה</label>
-                <input type="file" name="articleImages[]" class="articleImages" multiple accept="image/*">
-            </div>
-            <br><br>
-            <button name="post-article" value="post-article">פרסום המאמר</button>
-            <br><br>
-        </fieldset>
-    </form>
+    <div id="edit-article-form-div">
+        <form action="../req-handle.php?action=edit-article" id="edit-article" method="POST">
+            <table dir="rtl">
+                <caption>  רשימת המאמרים הקיימים במאגר הנתונים </caption>
+                <tbody>
+                <tr>
+                    <th scope="col"> <input type="checkbox" name="mainCheckbox" id="mainCheckbox" class="articleTableCheckboxes" onclick="toggleCheckbox(this)"> </th>
+                    <th scope="col"> עריכה </th>
+                    <th scope="col"> מחיקה </th>
+                    <th scope="col"> מאמר מספר </th>
+                    <th scope="col"> נושא המאמר </th>
+                    <th scope="col"> שם המאמר </th>
+                    <th scope="col"> תאריך פרסום </th>
+                    <th scope="col"> תמונה ראשית </th>
+                </tr>
+                <?php 
+                    require_once SITE_ROOT.'/classes/Article.php';
+                    Article::getList();
+                ?> 
+                </tbody>
+            </table>
+        </form>
+    </div>
 </div>
+<?php 
+    include_once '../js-scripts.php';
+?>
+

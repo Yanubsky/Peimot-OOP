@@ -30,6 +30,7 @@
         $users = " משתמשים";
         $therapies = " טיפולים ";
         $updateArticles = " עדכון מאמרים ";
+        $deleteArticles = " מחיקת מאמרים ";
         $articles = " פרסום מאמר ";
         $update = " עדכון פרטים ";
     ?>
@@ -41,6 +42,7 @@
             <button id="users" class="adminChoice" type="submit" name="choise" value="users"><?php echo $users?></button>       
             <button id="therapies" class="adminChoice" type="submit" name="choise" value="therapies"><?php echo $therapies?></button>
             <button id="articlesUpdate" class="adminChoice" type="submit" name="choise" value="articlesUpdate"><?php echo $updateArticles?></button>
+            <button id="deleteArticles" class="adminChoice" type="submit" name="choise" value="deleteArticles"><?php echo $deleteArticles?></button>
             <button id="articles" class="adminChoice" type="submit" name="choise" value="articles"><?php echo $articles?></button>
             <button id="update" class="adminChoice" type="submit" name="choise" value="update"><?php echo $update?></button>
         </form>
@@ -56,13 +58,18 @@
                         echo '<script> changeAdminCurrentComponentColor(`#update`) </script>';
                     break;
                     case 'articles':
-                        include '../admin-components/update-articles.php';
+                        include '../admin-components/post-articles.php';
                         echo '<script> changeAdminCurrentComponentColor(`#articles`) </script>';
                     break;
                     case 'articlesUpdate':
-                        include '../admin-components/delete-articles.php';
+                        include '../admin-components/editArticle.php';
                         include_once SITE_ROOT.'/classes/Article.php';
                         echo '<script> changeAdminCurrentComponentColor(`#articlesUpdate`) </script>';
+                    break;
+                    case 'deleteArticles':
+                        include '../admin-components/delete-articles.php';
+                        include_once SITE_ROOT.'/classes/Article.php';
+                        echo '<script> changeAdminCurrentComponentColor(`#deleteArticles`) </script>';
                     break;
                     case 'therapies':
                         include '../admin-components/update-therapies.php';
@@ -70,7 +77,7 @@
                     break;
                     case 'users':
                         include '../admin-components/update-users.php';
-                        echo '<script> changeAdminCurrentComponentColor(`#users`) </script>';
+                        echo '<script> changeAdminCurrentComponentCoolr(`#users`) </script>';
                     break;
                     case 'about':
                         include '../admin-components/update-about.php';
